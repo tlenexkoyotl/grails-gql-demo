@@ -79,21 +79,25 @@ hibernate:
 dataSource:
   pooled: true
   jmxExport: true
-  driverClassName: <db_driver>
   username: <db_username>
   password: <db_password>
 
 environments:
   development:
     dataSource:
+      driverClassName: org.postgresql.Driver
       dbCreate: <dev_db_create_strategy>
       url: <dev_db_uri>
+
   test:
     dataSource:
+      driverClassName: org.h2.Driver
       dbCreate: <test_db_create_strategy>
       url: <test_db_uri>
+
   production:
     dataSource:
+      driverClassName: org.postgresql.Driver
       dbCreate: <prod_db_create_strategy>
       url: <prod_db_uri>
       properties:
