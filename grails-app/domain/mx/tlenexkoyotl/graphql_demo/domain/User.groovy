@@ -1,4 +1,4 @@
-package mx.tlenexkoyotl.graphql_demo
+package mx.tlenexkoyotl.graphql_demo.domain
 
 import grails.compiler.GrailsCompileStatic
 import groovy.transform.EqualsAndHashCode

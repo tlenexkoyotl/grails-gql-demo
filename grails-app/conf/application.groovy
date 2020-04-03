@@ -27,7 +27,20 @@ grails {
                 }
             }
 
-            securityConfigType = "InterceptUrlMap"
+            password {
+                algorithm = 'SHA-256'
+
+                hash {
+                    iterations = 1
+                }
+            }
+
+            userLookup {
+                userDomainClassName = 'mx.tlenexkoyotl.graphql_demo.domain.User'
+                authorityJoinClassName = 'mx.tlenexkoyotl.graphql_demo.domain.UserPrivilege'
+            }
+
+            authority { className = 'mx.tlenexkoyotl.graphql_demo.domain.Privilege' }
 
             filterChain {
                 chainMap = [
@@ -37,15 +50,11 @@ grails {
                 ]
             }
 
-            userLookup {
-                userDomainClassName = 'mx.tlenexkoyotl.graphql_demo.User'
-                authorityJoinClassName = 'mx.tlenexkoyotl.graphql_demo.UserPrivilege'
-            }
-
-            authority { className = 'mx.tlenexkoyotl.graphql_demo.Privilege' }
+            securityConfigType = "InterceptUrlMap"
 
             interceptUrlMap = [
                     [pattern: '/', access: ['permitAll']],
+                    [pattern: '/assets/**', access: ['permitAll']],
                     [pattern: '/static/**', access: ['permitAll']],
                     [pattern: '/login/auth', access: ['ROLE_ANONYMOUS']],
                     [pattern: '/graphql/**', access: ['permitAll']],

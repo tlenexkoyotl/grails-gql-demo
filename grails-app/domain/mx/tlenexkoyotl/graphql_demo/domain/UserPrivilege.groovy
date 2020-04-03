@@ -1,4 +1,4 @@
-package mx.tlenexkoyotl.graphql_demo
+package mx.tlenexkoyotl.graphql_demo.domain
 
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString
@@ -130,13 +130,29 @@ class UserPrivilege implements Serializable {
         }
 
         mutation('userPrivilegesCreate', User) {
-            argument('userId', Long)
-            argument('privilegeIds', [Long])
+            argument 'userId', Long
+            argument 'privilegeIds', [Long]
 
             dataFetcher { env ->
-                env.context.userPrivilegeService.createAll env.arguments.userId as Long,
-                        env.arguments.privilegeIds as List<Long>,
-                        true
+                env.context.userPrivilegeService.createAll env
+            }
+        }
+
+        mutation('mutateTwoDomainTypeObjects', 'UserAndPrivilege') {
+            description 'This operation mutates two objects of different type defined from the domain entities and returns a custom type consisting of those two different types'
+
+            argument 'userId', Long
+            argument 'user', User
+            argument 'privilegeId', Long
+            argument 'privilege', Privilege
+
+            returns {
+                field 'user', User
+                field 'privilege', Privilege
+            }
+
+            dataFetcher { env ->
+                env.context.userPrivilegeService.mutateTwoDomainTypeObjects env
             }
         }
 

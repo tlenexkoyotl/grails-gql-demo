@@ -1,6 +1,7 @@
-package mx.tlenexkoyotl.graphql_demo
+package mx.tlenexkoyotl.graphql_demo.beans
 
 import grails.plugin.springsecurity.SpringSecurityService
+import mx.tlenexkoyotl.graphql_demo.domain.User
 import org.grails.datastore.mapping.engine.event.AbstractPersistenceEvent
 import org.grails.datastore.mapping.engine.event.PreInsertEvent
 import org.grails.datastore.mapping.engine.event.PreUpdateEvent
