@@ -1,11 +1,13 @@
-package mx.tlenexkoyotl.graphql_demo
+package mx.tlenexkoyotl.graphql_demo.beans
 
 import grails.plugin.springsecurity.SpringSecurityService
+import mx.tlenexkoyotl.graphql_demo.service.UserPrivilegeService
 import org.grails.gorm.graphql.plugin.DefaultGraphQLContextBuilder
 import org.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.User
 
-class GraphQLContextBuilder extends DefaultGraphQLContextBuilder {
+class GQLContextBuilder extends DefaultGraphQLContextBuilder {
 
     @Autowired
     SpringSecurityService springSecurityService
@@ -15,14 +17,12 @@ class GraphQLContextBuilder extends DefaultGraphQLContextBuilder {
 
     @Override
     Map buildContext(GrailsWebRequest request) {
-        org.springframework.security.core.userdetails.User user =
-                springSecurityService.getPrincipal() as org.springframework.security.core.userdetails.User
-
-        println "${user?.username}: \n${user?.authorities}\n"
-
         Map context = super.buildContext(request)
         context.springSecurityService = springSecurityService
-        context.userPrivilegeService = userPrivilegeService
+        context.userService = userPrivilegeService
+        User user = springSecurityService.getPrincipal() as User
+
+        println "${user?.username}: \n${user?.authorities}\n"
 
         context
     }
